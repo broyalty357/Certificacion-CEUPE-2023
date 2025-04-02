@@ -1,0 +1,21 @@
+# Utiliza una imagen base de Ubuntu
+FROM ubuntu:latest
+
+# Actualiza el sistema y instala jp2a
+RUN apt-get update -y && \
+    apt-get install -y jp2a
+
+# Crea un directorio para el script
+WORKDIR /app
+
+# Copia el script al directorio de trabajo
+COPY convert-to-ascii.sh /app/
+
+# Otorga permisos de ejecución al script
+RUN chmod +x /app/convert-to-ascii.sh
+
+# Punto de montaje para el volumen
+VOLUME [ "/asciiarts" ]
+
+# Comando por defecto para ejecutar al iniciar el contenedor
+CMD ["/app/convert-to-ascii.sh"]
